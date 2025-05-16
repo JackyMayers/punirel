@@ -1,288 +1,314 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Punissões Serviços</title>
-    <link rel="icon" href="https://i.postimg.cc/MG7qzW4x/emote.png" type="image/x-icon">
-    <style>
+  <meta charset="UTF-8" />
+  <title>Punição Serviços</title>
+  <link rel="icon" href="https://i.postimg.cc/MG7qzW4x/emote.png" type="image/x-icon">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
         body {
-            background-color: #1e1e1e;
-            color: #fff;
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
-
-        .container {
-            max-width: 800px;
-            margin: 50px auto;
-            padding: 20px;
-            background-color: #2c2c2c;
-            border-radius: 10px;
-        }
-
-        h1 {
-            text-align: center;
-            color: #f39c12;
-        }
-
-        form {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .form-group {
-            display: flex;
-            flex-direction: column;
-        }
-
-        label {
-            font-size: 16px;
-            color: #f39c12;
-        }
-
-        input, select {
-            padding: 10px;
-            margin-top: 5px;
-            background-color: #3a3a3a;
-            border: 1px solid #444;
-            border-radius: 5px;
-            color: #fff;
-            font-size: 14px;
-        }
-
-        input[type="submit"] {
-            background-color: #f39c12;
-            border: none;
-            cursor: pointer;
-        }
-
-        input[type="submit"]:hover {
-            background-color: #e67e22;
-        }
-
-        .output {
-            margin-top: 20px;
-            padding: 15px;
-            background-color: #333;
-            border-radius: 5px;
-            border: 1px solid #444;
-        }
-
-        .hidden {
-            display: none;
-        }
-    </style>
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #121212;
+      color: #ffffff;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-size: 16px;
+    }
+    .container {
+      width: 100%;
+      max-width: 700px;
+      padding: 20px;
+      background-color: #1d1d1d;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+      margin-top: 20px;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+        header p {
+      font-size: 14px;
+      margin: 10px 0;
+      color: #888;
+    }
+    header a {
+      color: #4fc3f7;
+      text-decoration: underline;
+    }
+    h1 {
+      font-size: 32px;
+      margin-bottom: 20px;
+      text-align: center;
+      color: #90caf9;
+    }
+    label {
+      margin: 8px 0 4px;
+      font-weight: bold;
+    }
+    input, select, textarea, button {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 16px;
+      border: 1px solid #333;
+      border-radius: 6px;
+      background-color: #2b2b2b;
+      color: #fff;
+      font-size: 14px;
+      transition: border-color 0.3s ease, background-color 0.3s ease;
+    }
+    input:focus, select:focus, textarea:focus {
+      border-color: #4fc3f7;
+      background-color: #333;
+    }
+        button {
+      background-color: #3f51b5;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      padding: 12px;
+      font-size: 16px;
+    }
+    button:hover {
+      background-color: #303f9f;
+    }
+    textarea {
+      resize: none;
+      height: 250px;
+    }
+    .hidden {
+      display: none;
+    }
+    .inline-group {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+    .footer {
+      text-align: center;
+      margin-top: 30px;
+      font-size: 14px;
+      color: #888;
+    }
+    .footer a {
+      color: #4fc3f7;
+      text-decoration: none;
+      }
+    .footer img {
+      margin-top: 10px;
+      border-radius: 50%;
+    }
+    @media (max-width: 600px) {
+      .inline-group {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+    /* Animações */
+    .fade-in {
+      animation: fadeIn 0.5s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Gerador de Relatório</h1>
-        <form id="relatorioForm">
-            <div class="form-group">
-                <label for="id">ID:</label>
-                <input type="number" id="id" required>
-            </div>
-            <div class="form-group">
-                <label for="idDiscord">ID Discord:</label>
-                <input type="text" id="idDiscord" required>
-            </div>
-            <div class="form-group">
-                <label for="profissao">Escolha a profissão:</label>
-                <select id="profissao" required>
-                    <option value="">Selecione uma profissão</option>
-                    <option value="Faxineiro">Faxineiro</option>
-                    <option value="Lenhador">Lenhador</option>
-                    <option value="Minerador">Minerador</option>
-                    <option value="Motoboy">Motoboy</option>
-                    <option value="Caçador">Caçador</option>
-                    <option value="Lixeiro">Lixeiro</option>
-                </select>
-            </div>
-            <div class="form-group hidden" id="opcoesProfissao">
-                <!-- Opções adicionais serão carregadas aqui -->
-            </div>
-            <div class="form-group">
-                <label>Tipo de Advertência:</label>
-                <label><input type="radio" name="tipoAdvertencia" value="primeira" checked> Primeira Advertência</label>
-                <label><input type="radio" name="tipoAdvertencia" value="segunda"> Segunda Advertência</label>
-            </div>
-            <div class="hidden" id="segundaAdvertenciaCampos">
-                <div class="form-group">
-                    <label for="nomeStaff">Nome do Staff:</label>
-                    <div style="display: flex; gap: 10px; align-items: center;">
-                        <input type="text" id="nomeStaff" placeholder="Nome do staff">
-                        <select id="pronomeStaff" required>
-                            <option value="o">o</option>
-                            <option value="a">a</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="dataReuniao1">Data da Reunião 1:</label>
-                    <input type="text" id="dataReuniao1" placeholder="Ex: ddmmaaaa, dd-mm-aaaa">
-                </div>
-                <div class="form-group">
-                    <label for="dataReuniao2">Data da Reunião 2:</label>
-                    <input type="text" id="dataReuniao2" placeholder="Ex: ddmmaaaa, dd-mm-aaaa">
-                </div>
-            </div>
-            <input type="submit" value="Gerar Relatório">
-        </form>
-        <div id="resultado" class="output hidden"></div>
+    <header>
+    <p>Lembrem-se de alterar a mensaem para "Bom dia!" "Boa tarde!" ou "Boa noite!"</a></p>
+  </header>
+  <div class="container fade-in">
+    <h1>Punições serviços XP</h1>
+    <label for="id">ID</label>
+    <input type="text" id="id" placeholder="ID" />
+    <label for="idDiscord">ID Discord</label>
+    <input type="text" id="idDiscord" placeholder="ID Discord" />
+    <label for="profissao">Profissão</label>
+    <select id="profissao" onchange="mostrarOpcoesAdicionais()">
+      <option value="Faxineiro">Faxineiro</option>
+      <option value="Lenhador">Lenhador</option>
+      <option value="Minerador">Minerador</option>
+      <option value="Motoboy">Motoboy</option>
+      <option value="Lixeiro">Lixeiro</option>
+      <option value="Caçador">Caçador</option>
+    </select>
+        <div id="opcoesLixeiro" class="hidden">
+      <label for="opcaoLixeiro">Tipo de advertência</label>
+      <select id="opcaoLixeiro" onchange="atualizarAdvertencia()">
+        <option value="Roupa">Roupa</option>
+        <option value="Veiculo">Veículo</option>
+        <option value="RoupaVeiculo">Roupa e Veículo</option>
+      </select>
     </div>
-    <footer>
-        <center>
-        <img src="https://i.postimg.cc/WzSNyqxY/Jacky-Confuso.png" alt="Placeholder Image" width="150">
-        <p>© 2025 - Todos os direitos reservados. Feito com ❤, ajuda de IA e um pouquinho de preguiça por <a href="https://jackymayers.github.io/" target="_blank">Jacky Mayers</a> !</p>
-    </center>
-    </footer>
-    <script>
-        document.getElementById('profissao').addEventListener('change', atualizarOpcoes);
-        document.querySelectorAll('input[name="tipoAdvertencia"]').forEach(el => el.addEventListener('change', toggleSegundaAdvertencia));
-        document.getElementById('relatorioForm').addEventListener('submit', gerarRelatorio);
-
-        function atualizarOpcoes() {
-            const profissao = document.getElementById('profissao').value;
-            const opcoesDiv = document.getElementById('opcoesProfissao');
-            opcoesDiv.innerHTML = '';
-            opcoesDiv.classList.add('hidden');
-
-            if (profissao === 'Lixeiro') {
-                opcoesDiv.innerHTML = `
-                    <label for="opcaoLixeiro">Escolha a opção:</label>
-                    <select id="opcaoLixeiro" required>
-                        <option value="veiculo">Veículo</option>
-                        <option value="roupa">Roupa</option>
-                        <option value="roupa_veiculo">Roupa e Veículo</option>
-                    </select>
-                `;
-                opcoesDiv.classList.remove('hidden');
-            } else if (profissao === 'Caçador') {
-                opcoesDiv.innerHTML = `
-                    <label for="opcaoCacador">Escolha a opção:</label>
-                    <select id="opcaoCacador" required>
-                        <option value="roupa">Roupa</option>
-                        <option value="arma">Arma</option>
-                        <option value="roupa_arma">Roupa e Arma</option>
-                    </select>
-                `;
-                opcoesDiv.classList.remove('hidden');
-            }
+    <div id="opcoesCacador" class="hidden">
+      <label for="opcaoCacador">Tipo de advertência</label>
+      <select id="opcaoCacador" onchange="atualizarAdvertencia()">
+        <option value="Roupa">Roupa</option>
+        <option value="Arma">Arma</option>
+        <option value="RoupaArma">Roupa e Arma</option>
+      </select>
+    </div>
+    <label for="tipoAdvertencia">Tipo de Advertência</label>
+    <select id="tipoAdvertencia" onchange="mostrarCamposTipo2(); atualizarAdvertencia();">
+      <option value="1">Advertência 1</option>
+      <option value="2">Advertência 2</option>
+    </select>
+        <div id="dadosAdvertencia2" class="hidden">
+      <div class="inline-group">
+        <label for="tratamento">"O" ou "A"</label>
+        <select id="tratamento" onchange="atualizarAdvertencia()">
+          <option value="o">O</option>
+          <option value="a">A</option>
+        </select>
+        <label for="nomeStaff">Staff</label>
+        <input type="text" id="nomeStaff" placeholder="Nome da Staff" />
+      </div>
+      <label for="data1">Data 1</label>
+      <input type="text" id="data1" placeholder="ex: 0705 ou 07/05" />
+      <label for="data2">Data 2</label>
+      <input type="text" id="data2" placeholder="ex: 0805 ou 08/05" />
+    </div>
+    <button onclick="gerarRelatorio()">Gerar Relatório</button>
+    <label for="relatorio">Relatório</label>
+    <textarea id="relatorio" readonly></textarea>
+  </div>
+  <div class="footer fade-in">
+    <img src="https://i.postimg.cc/WzSNyqxY/Jacky-Confuso.png" alt="Jacky Confuso" width="100" />
+    <p> 2025 - Feito com , ajuda de IA e um pouquinho de preguiça por <a href="https://jackymayers.github.io/" target="_blank">Jacky Mayers</a>!</p>
+  </div>
+  <script>
+    function mostrarOpcoesAdicionais() {
+      const prof = document.getElementById('profissao').value;
+      document.getElementById('opcoesLixeiro').classList.toggle('hidden', prof !== 'Lixeiro');
+      document.getElementById('opcoesCacador').classList.toggle('hidden', prof !== 'Caçador');
+      atualizarAdvertencia();
+    }
+    function mostrarCamposTipo2() {
+      const tipo = document.getElementById('tipoAdvertencia').value;
+      document.getElementById('dadosAdvertencia2').classList.toggle('hidden', tipo !== '2');
+    }
+    function atualizarAdvertencia() {
+      const prof = document.getElementById('profissao').value;
+      let motivo = 'Roupa inadequada';
+      if (prof === 'Lixeiro') {
+        const op = document.getElementById('opcaoLixeiro').value;
+        if (op === 'Veiculo') motivo = 'Veículo inadequado';
+        else if (op === 'RoupaVeiculo') motivo = 'Roupa e veículo inadequados';
+      }
+      if (prof === 'Caçador') {
+        const op = document.getElementById('opcaoCacador').value;
+        if (op === 'Arma') motivo = 'Arma inadequada';
+        else if (op === 'RoupaArma') motivo = 'Roupa e arma inadequadas';
+      }
+      document.getElementById('relatorio').setAttribute('data-motivoResumo', motivo);
+    }
+    function gerarRelatorio() {
+      const id = document.getElementById('id').value;
+      const discord = document.getElementById('idDiscord').value;
+      const prof = document.getElementById('profissao').value;
+      const tipo = document.getElementById('tipoAdvertencia').value;
+      const motivo = document.getElementById('relatorio').getAttribute('data-motivoResumo') || 'Roupa inadequada';
+      const nomeStaff = document.getElementById('nomeStaff').value;
+      const tratamento = document.getElementById('tratamento').value;
+      const data1Input = document.getElementById('data1').value;
+      const data2Input = document.getElementById('data2').value;
+      const detalhes = {
+        Faxineiro: '(Faxineiro: calça, sapatos, camiseta e cinto com ferramentas).',
+        Lenhador: '(Lenhador: luvas, sapatos, camiseta e calça).',
+        Minerador: '(Minerador: luvas, sapatos, colete refletivo, capacete de segurança, calças e camiseta).',
+        Motoboy: '(Motoboy: colete de mototaxi, sapatos, bolsa de entregador, jaqueta e capacete).',
+        Lixeiro: {
+          Roupa: '(Lixeiro: sapato, luvas, colete refletivo, camiseta e calça).',
+          Veiculo: '(Lixeiro: caminhão trash).',
+          RoupaVeiculo: '(Lixeiro: sapato, luvas, colete refletivo, camiseta, calça e caminhão trash).'
+        },
+        Caçador: {
+          Roupa: '(Caçador: roupas fechadas (calças e camisas manga longa) , luvas e sapatos).',
+          Arma: '(Caçador: rifle de caça).',
+          RoupaArma: '(Caçador: roupas fechadas (calças e camisas manga longa), luvas, sapatos e rifle de caça).'
         }
-
-        function toggleSegundaAdvertencia() {
-            const tipoAdvertencia = document.querySelector('input[name="tipoAdvertencia"]:checked').value;
-            const segundaAdvertenciaCampos = document.getElementById('segundaAdvertenciaCampos');
-            segundaAdvertenciaCampos.classList.toggle('hidden', tipoAdvertencia !== 'segunda');
+      };
+      let detalhe = detalhes[prof];
+      if (typeof detalhe === 'object') {
+        detalhe = detalhes[prof === 'Lixeiro' ? document.getElementById('opcaoLixeiro').value : document.getElementById('opcaoCacador').value];
+      }
+      let relatorio = `**ID:** ${id}\n**ID Discord:** ${discord} | <@${discord}>\n**Profissão:** ${prof}\n**Motivo da Advertência:** ${motivo} para realizar o trabalho de ${prof.toLowerCase()}\n**Status:** Advertência\n**Provas:**\n\n`;
+      if (tipo === '1') {
+        if (prof === 'Lixeiro') {
+          if (document.getElementById('opcaoLixeiro').value === 'Roupa') {
+            relatorio += `Boa tarde. Estamos registrando uma advertência pelo uso inadequado do uniforme de trabalho. Lembre-se de que é essencial utilizar a vestimenta correta para o serviço que está sendo realizado. Em caso de reincidência, uma punição entrará em vigor. ${detalhes.Lixeiro.Roupa}`;
+          } else if (document.getElementById('opcaoLixeiro').value === 'Veiculo') {
+            relatorio += `Boa tarde. Estamos registrando uma advertência pelo uso inadequado do veículo de trabalho. Lembre-se de que é essencial utilizar o veículo correto para o serviço que está sendo realizado. Em caso de reincidência, uma punição entrará em vigor. ${detalhes.Lixeiro.Veiculo}`;
+          } else if (document.getElementById('opcaoLixeiro').value === 'RoupaVeiculo') {
+            relatorio += `Boa tarde. Estamos registrando uma advertência pelo uso inadequado do uniforme e do veículo de trabalho. Lembre-se de que é essencial utilizar tanto a vestimenta quanto o veículo corretos para o serviço que está sendo realizado. Em caso de reincidência, uma punição entrará em vigor. ${detalhes.Lixeiro.RoupaVeiculo}`;
+          }
+        } else if (prof === 'Caçador') {
+          if (document.getElementById('opcaoCacador').value === 'Roupa') {
+            relatorio += `Boa tarde. Estamos registrando uma advertência pelo uso inadequado do uniforme de trabalho. Lembre-se de que é essencial utilizar a vestimenta correta para o serviço que está sendo realizado. Em caso de reincidência, uma punição entrará em vigor. ${detalhes.Caçador.Roupa}`;
+          } else if (document.getElementById('opcaoCacador').value === 'Arma') {
+            relatorio += `Boa tarde. Estamos registrando uma advertência pelo uso inadequado do equipamento de trabalho. Lembre-se de que é essencial utilizar o equipamento correto para o serviço que está sendo realizado. Em caso de reincidência, uma punição entrará em vigor. ${detalhes.Caçador.Arma}`;
+          } else if (document.getElementById('opcaoCacador').value === 'RoupaArma') {
+            relatorio += `Boa tarde. Estamos registrando uma advertência pelo uso inadequado do uniforme e do equipamento de trabalho. Lembre-se de que é essencial utilizar tanto a vestimenta quanto o equipamento corretos para o serviço que está sendo realizado. Em caso de reincidência, uma punição entrará em vigor. ${detalhes.Caçador.RoupaArma}`;
+          }
+        } else if (prof === 'Faxineiro') {
+          relatorio += `Boa tarde. Estamos registrando uma advertência pelo uso inadequado do uniforme de trabalho. Lembre-se de que é essencial utilizar a vestimenta correta para o serviço que está sendo realizado. Em caso de reincidência, uma punição entrará em vigor. ${detalhes.Faxineiro}`;
+        } else if (prof === 'Lenhador') {
+          relatorio += `Boa tarde. Estamos registrando uma advertência pelo uso inadequado do uniforme de trabalho. Lembre-se de que é essencial utilizar a vestimenta correta para o serviço que está sendo realizado. Em caso de reincidência, uma punição entrará em vigor. ${detalhes.Lenhador}`;
+        } else if (prof === 'Minerador') {
+          relatorio += `Boa tarde. Estamos registrando uma advertência pelo uso inadequado do uniforme de trabalho. Lembre-se de que é essencial utilizar a vestimenta correta para o serviço que está sendo realizado. Em caso de reincidência, uma punição entrará em vigor. ${detalhes.Minerador}`;
+        } else if (prof === 'Motoboy') {
+          relatorio += `Boa tarde. Estamos registrando uma advertência pelo uso inadequado do uniforme de trabalho. Lembre-se de que é essencial utilizar a vestimenta correta para o serviço que está sendo realizado. Em caso de reincidência, uma punição entrará em vigor. ${detalhes.Motoboy}`;
         }
-
-        function formatarData(data) {
-            const formatos = [
-                /^(\d{2})(\d{2})(\d{4})$/,       // ddmmaaaa
-                /^(\d{2})-(\d{2})-(\d{4})$/,     // dd-mm-aaaa
-                /^(\d{2})\/(\d{2})\/(\d{4})$/,   // dd/mm/aaaa
-                /^(\d{2})\s(\d{2})\s(\d{4})$/,   // dd mm aaaa
-                /^(\d{2})\.(\d{2})\.(\d{4})$/    // dd.mm.aaaa
-            ];
-
-            for (const formato of formatos) {
-                const match = data.match(formato);
-                if (match) {
-                    return `${match[1]}/${match[2]}/${match[3]}`; // Retorna no formato dd/mm/aaaa
-                }
-            }
-
-            return null; // Retorna nulo se o formato for inválido
-        }
-
-        function verificarDataEspecial(dataFormatada) {
-            if (!dataFormatada) return null;
-
-            const hoje = new Date();
-            const amanha = new Date();
-            amanha.setDate(hoje.getDate() + 1);
-
-            const [dia, mes, ano] = dataFormatada.split('/').map(Number);
-            const data = new Date(ano, mes - 1, dia); // Meses em JavaScript começam do 0
-
-            if (data.toDateString() === hoje.toDateString()) {
-                return `hoje (${dataFormatada})`;
-            } else if (data.toDateString() === amanha.toDateString()) {
-                return `amanhã (${dataFormatada})`;
-            } else {
-                return `(${dataFormatada})`;
-            }
-        }
-
-        function gerarRelatorio(event) {
-            event.preventDefault();
-
-            const id = document.getElementById('id').value;
-            const idDiscord = document.getElementById('idDiscord').value;
-            const profissao = document.getElementById('profissao').value;
-            const tipoAdvertencia = document.querySelector('input[name="tipoAdvertencia"]:checked').value;
-
-            let motivo = '';
-            let mensagem = '';
-
-            if (profissao === 'Lixeiro') {
-                const opcao = document.getElementById('opcaoLixeiro').value;
-                if (opcao === 'veiculo') {
-                    motivo = 'Veículo inadequado para realizar o trabalho de lixeiro';
-                    mensagem = `Boa tarde. Estamos registrando uma advertência em razão do não uso do veículo correto para a realização de suas atividades. É fundamental que o veículo adequado seja utilizado para o serviço que está sendo executado. Em caso de reincidência, uma punição entrará em vigor.`;
-                } else if (opcao === 'roupa') {
-                    motivo = 'Roupa inadequada para realizar o trabalho de lixeiro';
-                    mensagem = `Boa tarde. Estamos registrando uma advertência pelo uso inadequado do uniforme de trabalho. Lembre-se de que é essencial utilizar a vestimenta correta para o serviço que está sendo realizado. Em caso de reincidência, uma punição entrará em vigor.`;
-                } else if (opcao === 'roupa_veiculo') {
-                    motivo = 'Roupa e veículo inadequados para realizar o trabalho de lixeiro';
-                    mensagem = `Boa tarde. Estamos registrando uma advertência pelo uso inadequado do uniforme e do veículo de trabalho. Lembre-se de que é essencial utilizar a vestimenta e o veículo corretos para o serviço que está sendo realizado. Em caso de reincidência, uma punição entrará em vigor.`;
-                }
-            } else if (profissao === 'Caçador') {
-                const opcao = document.getElementById('opcaoCacador').value;
-                if (opcao === 'roupa') {
-                    motivo = 'Roupa inadequada para realizar o trabalho de caçador';
-                    mensagem = `Boa tarde. Estamos registrando uma advertência pelo uso inadequado do uniforme de trabalho. Lembre-se de que é essencial utilizar a vestimenta correta para o serviço que está sendo realizado. Em caso de reincidência, uma punição entrará em vigor.`;
-                } else if (opcao === 'arma') {
-                    motivo = 'Equipamento inadequado para realizar o trabalho de caçador';
-                    mensagem = `Boa tarde. Estamos registrando uma advertência pelo uso inadequado do equipamento de trabalho. Lembre-se de que é essencial utilizar o equipamento correto para o serviço que está sendo realizado. Em caso de reincidência, uma punição entrará em vigor.`;
-                } else if (opcao === 'roupa_arma') {
-                    motivo = 'Roupa e equipamento inadequados para realizar o trabalho de caçador';
-                    mensagem = `Boa tarde. Estamos registrando uma advertência pelo uso inadequado do uniforme e do equipamento de trabalho. Lembre-se de que é essencial utilizar a vestimenta e o equipamento corretos para o serviço que está sendo realizado. Em caso de reincidência, uma punição entrará em vigor.`;
-                }
-            } else {
-                motivo = `Roupa inadequada para realizar o trabalho de ${profissao.toLowerCase()}`;
-                mensagem = `Boa tarde. Estamos registrando uma advertência pelo uso inadequado do uniforme de trabalho. Lembre-se de que é essencial utilizar a vestimenta correta para o serviço que está sendo realizado. Em caso de reincidência, uma punição entrará em vigor.`;
-            }
-
-            if (tipoAdvertencia === 'segunda') {
-                const nomeStaff = document.getElementById('nomeStaff').value || 'Não informado';
-                const pronomeStaff = document.getElementById('pronomeStaff').value || 'o';
-                const dataReuniao1 = formatarData(document.getElementById('dataReuniao1').value);
-                const dataReuniao2 = formatarData(document.getElementById('dataReuniao2').value);
-
-                const dataFinal1 = verificarDataEspecial(dataReuniao1);
-                const dataFinal2 = verificarDataEspecial(dataReuniao2);
-
-                const datas = [dataFinal1, dataFinal2].filter(data => data !== null).join(' ou ');
-
-                mensagem = `Boa Tarde, você está sendo convidado(a) a participar de uma reunião com a Equipe de Suporte. Procure ${pronomeStaff} ${nomeStaff}, para agendar um horário no **PRIVADO**, na data de ${datas}. Motivo: ${motivo}`;
-            }
-
-            const resultado = `
-                <h2>Relatório Gerado</h2>
-                ID: ${id}<br>
-                ID Discord: ${idDiscord} | <@${idDiscord}><br>
-                Profissão: ${profissao}<br>
-                Motivo da Advertência: ${motivo}<br>
-                Status: Advertência<br>
-                Provas:<br><br><br>
-                ${mensagem}
-            `;
-            document.getElementById('resultado').innerHTML = resultado;
-            document.getElementById('resultado').classList.remove('hidden');
-        }
-    </script>
+        } else {
+        const dataTexto = montarTextoData(data1Input, data2Input);
+        relatorio += `Boa Tarde, você está sendo convidado/a a participar de uma reunião com a Equipe de Suporte. Procure ${tratamento} ${nomeStaff}, para agendar um horário no PRIVADO, ${dataTexto}. Motivo: ${motivo} para realizar o trabalho de ${prof.toLowerCase()}`;
+      }
+      document.getElementById('relatorio').value = relatorio;
+    }
+    function normalizarDataBr(str) {
+      const soNumeros = str.replace(/[^\d]/g, '');
+      const hoje = new Date();
+      const anoAtual = hoje.getFullYear();
+      if (soNumeros.length === 4) {
+        return new Date(`${anoAtual}-${soNumeros.slice(2, 4)}-${soNumeros.slice(0, 2)}T00:00:00`);
+      }
+      if (soNumeros.length === 8) {
+        return new Date(`${soNumeros.slice(4, 8)}-${soNumeros.slice(2, 4)}-${soNumeros.slice(0, 2)}T00:00:00`);
+      }
+      return null;
+    }
+        function montarTextoData(d1, d2) {
+      const hoje = new Date();
+      const amanha = new Date();
+      amanha.setDate(hoje.getDate() + 1);
+      const data1 = normalizarDataBr(d1);
+      const data2 = normalizarDataBr(d2);
+      const f1 = data1?.toLocaleDateString('pt-BR');
+      const f2 = data2?.toLocaleDateString('pt-BR');
+      if (!data1 || isNaN(data1)) return 'data inválida';
+      let texto = '';
+      const hojeF = hoje.toLocaleDateString('pt-BR');
+      const amanhaF = amanha.toLocaleDateString('pt-BR');
+      if (f1 === hojeF) texto += `na data de hoje (${f1})`;
+      else if (f1 === amanhaF) texto += `na data de amanhã (${f1})`;
+      else texto += `na data de (${f1})`;
+      if (data2 && !isNaN(data2)) {
+        if (f2 === amanhaF) texto += ` ou amanhã (${f2})`;
+        else texto += ` ou (${f2})`;
+      }
+            return texto;
+    }
+  </script>
 </body>
 </html>
